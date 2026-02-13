@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app              # Sincroniza tu código local con el contenedor
+      - /app/node_modules   # ¡IMPORTANTE! Evita que tu carpeta local vacía borre la del contenedor
+    environment:
+      - CHOKIDAR_USEPOLLING=true # Ayuda a detectar cambios en algunos sistemas
