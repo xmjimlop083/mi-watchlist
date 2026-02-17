@@ -1,73 +1,107 @@
-# React + TypeScript + Vite
+# Mi Watchlist 🎬
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Mi Watchlist** es una aplicación web moderna diseñada para llevar un registro de las películas y series que has visto o quieres ver. Desarrollada con **React** y **TypeScript**, utiliza **Vite** para desarrollo ultrarrápido, **Firebase** para la persistencia de datos en tiempo real y **Docker** para facilitar el despliegue.
 
-Currently, two official plugins are available:
+## 🚀 Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Gestión de Contenido Interactiva**: Añade nuevas películas o series a tu lista personal.
+- **Detalles Personalizados**: Guarda información clave para cada entrada:
+  - Título
+  - Tipo (Película/Serie)
+  - Plataforma (Netflix, HBO Max, Disney+, Cine, etc.)
+  - Calificación personal (⭐)
+  - Imagen de portada (URL)
+- **Persistencia en la Nube**: Integración completa con **Firebase Firestore** para asegurar que no pierdas tu lista.
+- **Interfaz Moderna**: Reactiva y estilizada con CSS Modules.
+- **Actualizaciones en Tiempo Real**: Optimistic UI para una experiencia de usuario fluida y rápida.
 
-## React Compiler
+## 🛠️ Tecnologías
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Este proyecto está construido con un stack moderno y eficiente:
 
-## Expanding the ESLint configuration
+- **Frontend**: [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Base de Datos**: [Firebase Firestore](https://firebase.google.com/)
+- **Contenedores**: [Docker](https://www.docker.com/) & Docker Compose
+- **Calidad de Código**: ESLint
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📋 Requisitos Previos
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Para ejecutar este proyecto localmente, asegúrate de tener instalado:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- [Node.js](https://nodejs.org/) (versión 18 o superior)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) (Opcional, si prefieres usar contenedores)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🔧 Instalación y Ejecución
+
+### Opción A: Desarrollo Local con Node.js
+
+1.  **Clonar el repositorio**:
+    ```bash
+    git clone https://github.com/xmjimlop083/mi-watchlist.git
+    cd mi-watchlist
+    ```
+
+2.  **Instalar dependencias**:
+    ```bash
+    npm install
+    ```
+
+3.  **Configurar Firebase**:
+    - El proyecto ya incluye una configuración base en `src/firebase/config.ts`. Si deseas usar tu propia base de datos, actualiza las credenciales en este archivo.
+
+4.  **Iniciar el servidor de desarrollo**:
+    ```bash
+    npm run dev
+    ```
+    La aplicación estará disponible en `http://localhost:5173`.
+
+### Opción B: Ejecución con Docker 🐳
+
+Si prefieres un entorno aislado sin instalar dependencias de Node en tu máquina:
+
+1.  **Construir y levantar los servicios**:
+    ```bash
+    docker compose up --build
+    ```
+
+2.  **Acceso**:
+    - Abre tu navegador en `http://localhost:5173`.
+    - Los cambios en el código se reflejarán automáticamente gracias a los volúmenes configurados.
+
+## 📂 Estructura del Proyecto
+
+```plaintext
+mi-watchlist/
+├── 🐳 docker-compose.yml   # Orquestación de contenedores
+├── 🐋 Dockerfile           # Definición de la imagen del contenedor
+├── 📦 package.json         # Dependencias y scripts
+├── ⚙️ vite.config.ts       # Configuración de Vite
+├── 📂 public/              # Archivos estáticos
+└── 📂 src/
+    ├── ⚛️ App.tsx          # Componente principal
+    ├── 📂 components/      # Componentes UI (Navbar, MovieCards, Formulario)
+    ├── 📂 firebase/        # Configuración y servicios de Firebase (CRUD)
+    ├── 📂 types/           # Definiciones de tipos TypeScript
+    └── 🎨 App.css          # Estilos globales
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📝 Scripts Disponibles
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- `npm run dev`: Inicia el servidor de desarrollo con HMR.
+- `npm run build`: Compila la aplicación para producción.
+- `npm run preview`: Vista previa local de la compilación de producción.
+- `npm run lint`: Ejecuta el linter para verificar la calidad del código.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🤝 Contribuir
+
+¡Las contribuciones son bienvenidas!
+
+1.  Haz un Fork del repositorio.
+2.  Crea una rama (`git checkout -b feature/NuevaFuncionalidad`).
+3.  Haz Commit de tus cambios (`git commit -m 'Añadir nueva funcionalidad'`).
+4.  Haz Push a la rama (`git push origin feature/NuevaFuncionalidad`).
+5.  Abre un Pull Request.
+
+---
+Hecho con 💙 por [xmjimlop083](https://github.com/xmjimlop083)
